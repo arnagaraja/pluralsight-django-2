@@ -33,11 +33,15 @@ class ElectronicsView(View):
         items = ("item 1", "item 2", "item 3", "item 4", "item 5", "item 6")
         paginator = Paginator(items, 2)
         pages = request.GET.get('page', 1)
+        self.process()
         try:
             items = paginator.page(pages)
         except PageNotAnInteger:
             items = paginator.page(1)
         return render(request, 'store/list.html', {'items': items})
+    
+    def process(self):
+        print("We are processing Electronics")
 
 class ElectronicsView2(TemplateView):
     template_name = 'store/list.html'
@@ -51,3 +55,16 @@ class ElectronicsView3(ListView):
     queryset = ("item 1", "item 2", "item 3", "item 4", "item 5", "item 6")
     context_object_name = 'items'
     paginate_by = 2
+
+class ComputersView(ElectronicsView):
+    # def process(self):
+    #     print("We are processing Computers")
+    pass
+    
+class MobileView():
+    # def process(self):
+    #     print("We are processing Mobile Phones")
+    pass
+
+class EquipmentView(MobileView, ComputersView):
+    pass
