@@ -14,10 +14,11 @@ def detail(request):
     return HttpResponse("store front detail pages coming soon")
 
 def logout(request):
-    # try:
-    #     del request.session['customer']
-    # except KeyError:
-    #     print("Error while logging out.")
+    try:
+        del request.session['customer']
+        print("Successfully deleted session")
+    except KeyError:
+        print("Error while logging out.")
     return HttpResponse("You're logged out.")
 
 # #@csrf_exempt
