@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <h1> You've visited {{ request.COOKIES.visits|default:"1" }} times. </h1>
+        <h1> Hi {{ request.session.customer }}, you've visited {{ request.COOKIES.visits|default:"1" }} times. </h1>
 
        {% for item in items %}
             <ul> {{ item|upper }} </ul>
@@ -38,5 +38,6 @@
             </span>
         </div>
         {% endif %}
+    <a href="logout">Logout</a>
     </body>
 </html>

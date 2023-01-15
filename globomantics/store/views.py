@@ -13,20 +13,32 @@ def index(request):
 def detail(request):
     return HttpResponse("store front detail pages coming soon")
 
+def logout(request):
+    # try:
+    #     del request.session['customer']
+    # except KeyError:
+    #     print("Error while logging out.")
+    return HttpResponse("You're logged out.")
+
 # #@csrf_exempt
-# @require_http_methods(["GET"])
-# @cache_page(900)
-# def electronics(request):
-#     items = ("item 1", "item 2", "item 3", "item 4")
-#     if request.method == 'GET':
-#         paginator = Paginator(items, 2)
-#         pages = request.GET.get('page', 1)
-#         try:
-#             items = paginator.page(pages)
-#         except PageNotAnInteger:
-#             items = paginator.page(1)
-#         return render(request, 'store/list.html', {'items': items})
-#     return HttpResponse("store front electronics pages coming soon")
+@require_http_methods(["GET"])
+#@cache_page(900)
+def electronics(request):
+    items = ("item 1", "item 2", "item 3", "item 4")
+    if request.method == 'GET':
+        paginator = Paginator(items, 2)
+        pages = request.GET.get('page', 1)
+        name = "Timothy"
+        try:
+            items = paginator.page(pages)
+        except PageNotAnInteger:
+            items = paginator.page(1)
+        
+        if not request.session.has_key('customer'):
+            request.session['customer'] = name
+            print("Session value set")
+        return render(request, 'store/list.html', {'items': items})
+    return HttpResponse("store front electronics pages coming soon")
 
 class ElectronicsView(View):
     def get(self, request):
@@ -80,3 +92,4 @@ class MobileView():
 
 class EquipmentView(MobileView, ComputersView):
     pass
+
